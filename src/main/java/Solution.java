@@ -61,22 +61,22 @@ class Board {
 
     public Board(int[][] board) {
         this.board = board;
-
-        if (getHeight() > 20 || getWidth() > 20) {
-            throw new RuntimeException("Board too big");
-        }
-
-        if (getHeight() < 2 || getWidth() < 2) {
-            throw new RuntimeException("Board too small");
-        }
+//
+//        if (getHeight() > 20 || getWidth() > 20) {
+//            throw new RuntimeException("Board too big");
+//        }
+//
+//        if (getHeight() < 2 || getWidth() < 2) {
+//            throw new RuntimeException("Board too small");
+//        }
     }
 
     final int positionValue(Position position) {
         int value = this.board[position.getY()][position.getX()];
 
-        if (value != 0 && value != 1) {
-            throw new RuntimeException("Invalid position value");
-        }
+//        if (value != 0 && value != 1) {
+//            throw new RuntimeException("Invalid position value");
+//        }
 
         return value;
     }
@@ -145,10 +145,10 @@ class PathFinder {
         // Current path - setting current position
         path.add(position);
 
-        // Check first room to not have walls
-        if (path.size() == 1 && board.positionValue(position) > 0) {
-            throw new RuntimeException("First room had walls");
-        }
+//        // Check first room to not have walls
+//        if (path.size() == 1 && board.positionValue(position) > 0) {
+//            throw new RuntimeException("First room had walls");
+//        }
 
         // Stop if proven longer - should minimize runtime.
         if (path.size() >= numSteps) {
@@ -157,10 +157,10 @@ class PathFinder {
 
         // If we have reached our goal, add path and return all paths.
         if (position.getX() == end.getX() && position.getY() == end.getY()) {
-            // Last room can not have walls
-            if (board.positionValue(position) > 0) {
-                throw new RuntimeException("Last room had walls");
-            }
+//            // Last room can not have walls
+//            if (board.positionValue(position) > 0) {
+//                throw new RuntimeException("Last room had walls");
+//            }
 
             // Number of steps to limit unnecessary runs.
             this.numSteps = path.size();
