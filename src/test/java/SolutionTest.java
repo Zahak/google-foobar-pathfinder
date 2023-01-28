@@ -50,7 +50,7 @@ public class SolutionTest {
                 {0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1},
                 {0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1}
         };
-        Solution.solution(testCaseThree);
+        System.out.println(Solution.solution(testCaseThree));
     }
 
     @Test(expected = RuntimeException.class)
