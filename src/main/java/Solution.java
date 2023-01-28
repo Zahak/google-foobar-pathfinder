@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 public class Solution {
     public String helloWorld() {
@@ -34,6 +36,11 @@ class Position {
     }
 
     @Override
+    public String toString() {
+        return "(" + x + ", " + y + ")";
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (o == this) {
             return true;
@@ -51,8 +58,7 @@ class Position {
 
     @Override
     public int hashCode() {
-        int hash = super.hashCode();
-        return hash;
+        return 31 * x + y;
     }
 }
 
@@ -100,6 +106,10 @@ class PathFinder {
     // Stopping paths that are too long should decrease runtime.
     private int numSteps;
 
+    // Map with the number of steps previously required for current room - if more steps this time we might as well stop
+    // Since all paths from a certain room is discovered on first try, it doesn't matter if first try worked out or not
+    private Map<String, Integer> map;
+
     public PathFinder(Board board, int startX, int startY, int endX, int endY) {
         this.board = board;
         this.start = new Position(startX, startY);
@@ -113,6 +123,8 @@ class PathFinder {
                 new Position(0, -1),
                 new Position(0, 1)
         );
+
+        this.map = new HashMap<>();
     }
 
     public int shortestPath() {
@@ -144,6 +156,7 @@ class PathFinder {
     private List<List<Position>> getAllPaths(List<List<Position>> paths, List<Position> path, Position position, boolean passedWall) {
         // Current path - setting current position
         path.add(position);
+        map.put(position.toString(), path.size());
 
 //        // Check first room to not have walls
 //        if (path.size() == 1 && board.positionValue(position) > 0) {
@@ -181,7 +194,8 @@ class PathFinder {
 
             Position newPosition = new Position(newX, newY);
 
-            if (path.contains(newPosition)) {
+            if (path.contains(newPosition) ||
+                    (map.containsKey(newPosition.toString()) && map.get(newPosition.toString()) <= path.size() + 1)) {
                 continue;
             }
 
