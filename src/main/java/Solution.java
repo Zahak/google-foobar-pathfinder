@@ -180,39 +180,23 @@ class PathFinder {
             }
 
             Position newPosition = new Position(newX, newY);
-            
-            // @todo Optimize this!
-            if (!beenHereBefore(path, newPosition)) {
-                boolean wall = board.positionValue(position) > 0;
 
-                // Only one wall can be passed per path
-                if (wall && !passedWall) {
-                    getAllPaths(paths, new ArrayList<>(path), newPosition, true);
-                }
-                else if (!wall) {
-                    getAllPaths(paths, new ArrayList<>(path), newPosition, passedWall);
-                }
+            if (path.contains(newPosition)) {
+                continue;
+            }
+
+            boolean wall = board.positionValue(position) > 0;
+            if (wall && passedWall) {
+                continue;
+            }
+            else if (wall) {
+                getAllPaths(paths, new ArrayList<>(path), newPosition, true);
+            }
+            else {
+                getAllPaths(paths, new ArrayList<>(path), newPosition, passedWall);
             }
         }
 
         return paths;
-    }
-
-    private boolean beenHereBefore(List<Position> path, Position newPosition) {
-        if (path.contains(newPosition)) {
-            System.out.println("duplicate found");
-            return true;
-        }
-        else {
-            return false;
-        }
-
-//        for (Position previousPosition: path) {
-//            if (newPosition.getY() == previousPosition.getY() && newPosition.getX() == previousPosition.getX()) {
-//                return true;
-//            }
-//        }
-//
-//        return false;
     }
 }
