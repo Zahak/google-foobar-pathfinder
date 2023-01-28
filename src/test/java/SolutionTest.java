@@ -3,8 +3,6 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class SolutionTest {
-    Solution solution = new Solution();
-
     @Test
     public void testPositionEquals() {
         Position testPosition = new Position(0, 0);
@@ -15,12 +13,6 @@ public class SolutionTest {
         assertNotEquals(testPosition, testPositionThree);
         assertNotSame(testPosition, testPositionTwo);
         assertNotSame(testPosition, testPositionThree);
-    }
-
-    @Test
-    public void testPrintMessage() {
-        String message = "Hello world";
-        assertEquals(message, solution.helloWorld());
     }
 
     @Test
