@@ -1,3 +1,4 @@
+import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -37,7 +38,7 @@ class Position {
 
     @Override
     public String toString() {
-        return "(" + x + ", " + y + ")";
+        return "(" + x + "," + y + ")";
     }
 
     @Override
@@ -56,10 +57,10 @@ class Position {
                 && y == comparedObject.getY();
     }
 
-    @Override
-    public int hashCode() {
-        return 31 * x + y;
-    }
+//    @Override
+//    public int hashCode() {
+//        return 31 * x + y;
+//    }
 }
 
 class Board {
@@ -129,6 +130,9 @@ class PathFinder {
 
     public int shortestPath() {
         List<List<Position>> allPaths = this.getAllPaths();
+        if (numSteps == Integer.MAX_VALUE) {
+            throw new RuntimeException("Integer MAX_VALUE indicates impassable map");
+        }
         return numSteps;
     }
 
@@ -156,7 +160,7 @@ class PathFinder {
     private List<List<Position>> getAllPaths(List<List<Position>> paths, List<Position> path, Position position, boolean passedWall) {
         // Current path - setting current position
         path.add(position);
-        map.put(position.toString(), path.size());
+        map.put(position.toString() + passedWall, path.size());
 
 //        // Check first room to not have walls
 //        if (path.size() == 1 && board.positionValue(position) > 0) {
@@ -195,7 +199,7 @@ class PathFinder {
             Position newPosition = new Position(newX, newY);
 
             if (path.contains(newPosition) ||
-                    (map.containsKey(newPosition.toString()) && map.get(newPosition.toString()) <= path.size() + 1)) {
+                    (map.containsKey(newPosition.toString() + passedWall) && map.get(newPosition.toString() + passedWall) <= path.size() + 1)) {
                 continue;
             }
 

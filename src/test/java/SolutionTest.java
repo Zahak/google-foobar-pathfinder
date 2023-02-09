@@ -16,6 +16,22 @@ public class SolutionTest {
     }
 
     @Test
+    public void testPositionToString() {
+        Position testPosition = new Position(0, 0);
+        assertEquals("(0,0)", testPosition.toString());
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void testImpassablePassage() {
+        int[][] impassable = {
+                {0, 0, 1},
+                {1, 1, 1},
+                {0, 1, 0}
+        };
+        System.out.println(Solution.solution(impassable));
+    }
+
+    @Test
     public void testCaseOne() {
         int[][] caseOne = {{0, 1, 1, 0}, {0, 0, 0, 1}, {1, 1, 0, 0}, {1, 1, 1, 0}};
         assertEquals(7, Solution.solution(caseOne));
@@ -48,7 +64,7 @@ public class SolutionTest {
                 {0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1},
                 {0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1},
                 {0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1},
-                {0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1}
+                {0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
         };
         System.out.println(Solution.solution(testCaseThree));
     }
